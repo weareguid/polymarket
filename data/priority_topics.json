@@ -1,0 +1,32 @@
+{
+  "_comment": "Temas sobre los que tengo conocimiento propio y quiero ver siempre en el dashboard, sin importar su volumen. Agregar/modificar topics según convenga.",
+  "topics": [
+    {
+      "name": "Mexico",
+      "keywords": [
+        "mexico", "mexican", "pemex", "banxico", "sheinbaum", "amlo",
+        "peso mexicano", "mxn", "nafta", "usmca", "t-mec",
+        "nearshoring", "monterrey", "guadalajara", "ciudad de mexico",
+        "morena", "pan mexico", "pri mexico", "cartel mexico",
+        "mexico tariff", "mexico trade", "mexico election",
+        "mexico economy", "mexico gdp", "mexico inflation",
+        "mexico border", "mexico us border", "mexico immigration"
+      ],
+      "note": "Eventos económicos, políticos y comerciales de México"
+    },
+    {
+      "name": "Argentina",
+      "keywords": [
+        "argentina", "argentinian", "milei", "javier milei",
+        "peso argentino", "ars", "ypf", "mercadolibre", "meli",
+        "bcra", "banco central argentina", "imf argentina",
+        "argentina debt", "argentina default", "argentina inflation",
+        "argentina economy", "argentina gdp", "argentina election",
+        "argentina dollarization", "argentina bonds", "argentina peso",
+        "argentina reform", "argentina privatization",
+        "buenos aires", "patagonia", "argentina lithium"
+      ],
+      "note": "Eventos económicos, políticos y comerciales de Argentina"
+    }
+  ]
+}

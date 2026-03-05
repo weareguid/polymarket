@@ -1,0 +1,17 @@
+# Core dependencies
+requests>=2.28.0
+python-dotenv>=1.0.0
+
+# Data processing
+pandas>=2.0.0
+
+# Charts
+matplotlib>=3.7.0
+
+# Stock prices (record_trade.py, dashboard P&L)
+yfinance>=0.2.0
+
+# Optional: For future improvements
+# websocket-client>=1.5.0  # Real-time data
+# scikit-learn>=1.2.0  # ML models
+# openai>=1.0.0  # LLM for classification

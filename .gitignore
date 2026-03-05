@@ -1,0 +1,59 @@
+# Environment — NEVER commit credentials
+.env
+*.env
+credentials.json
+token.json
+
+# Data — generated at runtime, too large for git
+data/raw/
+data/processed/
+data/historical/
+data/portfolio/
+data/finsignal/
+data/models/
+
+# Logs — generated at runtime
+logs/
+
+# Outputs — generated files (charts, dashboards, CSVs)
+outputs/
+*.html
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Jupyter
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+*_executed.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+
+# Runtime data directories
+data/snapshots/
+data/huggingface/
