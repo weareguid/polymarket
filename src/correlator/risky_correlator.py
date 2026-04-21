@@ -115,6 +115,32 @@ _SECOND_ORDER_RULES = [
         ]
     ),
 
+    # Iran / Middle East ceasefire
+    (
+        r"\b(iran|israel).{0,30}(ceasefire|peace|deal)\b",
+        [
+            ("USO",  "U.S. Oil Fund", "negative", "supply_chain",
+             "Ceasefire removes geopolitical risk premium from oil prices."),
+            ("ITA",  "Defense ETF", "negative", "competitor",
+             "De-escalation reduces immediate defense spending urgency."),
+            ("UAL",  "United Airlines", "positive", "supply_chain",
+             "Lower oil prices from de-escalation improve airline fuel margins."),
+        ]
+    ),
+
+    # Iran / Middle East escalation
+    (
+        r"\b(iran|israel).{0,30}(strike|war|escalation|fall)\b",
+        [
+            ("USO",  "U.S. Oil Fund", "positive", "supply_chain",
+             "Escalation threatens Strait of Hormuz and regional supply, spiking oil."),
+            ("ITA",  "Defense ETF", "positive", "competitor",
+             "Increased Middle East instability drives defense spending."),
+            ("UAL",  "United Airlines", "negative", "supply_chain",
+             "Oil price spikes compress airline margins."),
+        ]
+    ),
+
     # Ukraine ceasefire / peace deal
     (
         r"\b(ukraine.{0,30}(ceasefire|peace|deal|negotiation|end.{0,10}war))\b",

@@ -36,6 +36,7 @@ class InvestmentSignal:
     # Source info
     source_market: str       # Market question
     source_category: str
+    market_url: str          # https://polymarket.com/event/{slug}
     yes_price: float
     volume_24h: float
 
@@ -191,6 +192,7 @@ class SignalGenerator:
             optimal_window=optimal_window,
             source_market=market.question[:150],
             source_category=market.category,
+            market_url=f"https://polymarket.com/event/{market.slug}" if market.slug else "",
             yes_price=market.outcome_prices.get("Yes", 0.5),
             volume_24h=market.volume_24h,
             rationale=rationale,
@@ -319,7 +321,7 @@ class SignalGenerator:
             "ticker", "instrument_name", "instrument_type", "exchange",
             "action", "strength", "confidence",
             "timing_action", "days_to_event", "optimal_window",
-            "source_market", "source_category", "yes_price", "volume_24h",
+            "source_market", "source_category", "market_url", "yes_price", "volume_24h",
             "rationale", "risk_factors", "generated_at"
         ]
 

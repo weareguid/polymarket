@@ -13,6 +13,8 @@ from datetime import datetime, timedelta
 from email.header import decode_header
 from typing import List, Dict
 
+import requests
+from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -44,6 +46,16 @@ NEWSLETTER_SENDER_PATTERNS = [
     "finimize",
     "robinhoodsnacks",
     "axios markets",
+    "bre markets", "bremarkets",
+    "pomp letter", "pompcryptis", "pompletter", "anthony pompliano",
+    # Personal account — forwarded market intel / custom analysis
+    "roresendiz@gmail.com",
+]
+
+# Email addresses/domains to match in body text (catches forwarded emails)
+FORWARDED_SENDER_PATTERNS = [
+    "fool@motley.fool.com",
+    "motley.fool.com",
 ]
 
 # Finance keywords for unknown senders
@@ -97,14 +109,39 @@ def _extract_body(msg) -> str:
     return re.sub(r"<[^>]+>", " ", html)
 
 
+def _fetch_web_body(body: str) -> str:
+    """If email body is just a redirect URL, fetch and return the actual web content."""
+    url_match = re.search(r'https?://\S+brewmarkets\.com/issues/\S+', body)
+    if not url_match:
+        return body
+    url = url_match.group(0).strip()
+    try:
+        resp = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+        if resp.ok:
+            soup = BeautifulSoup(resp.text, "html.parser")
+            # Remove scripts, styles, nav elements
+            for tag in soup(["script", "style", "nav", "footer", "header"]):
+                tag.decompose()
+            text = soup.get_text(separator=" ")
+            text = re.sub(r'\s+', ' ', text)
+            return text[:20000]
+    except Exception:
+        pass
+    return body
+
+
 def _is_financial_email(sender: str, subject: str, body: str) -> bool:
     """Heuristic: is this a financial newsletter worth parsing?"""
     sender_lower = sender.lower()
     if any(p in sender_lower for p in NEWSLETTER_SENDER_PATTERNS):
         return True
 
-    # Check body for finance density
+    # Check body for forwarded sender addresses (e.g. Fwd: from fool@motley.fool.com)
     body_lower = body.lower()
+    if any(p in body_lower for p in FORWARDED_SENDER_PATTERNS):
+        return True
+
+    # Check body for finance density
     hits = sum(1 for kw in FINANCE_KEYWORDS if kw in body_lower)
     return hits >= 3
 
@@ -155,6 +192,7 @@ class GmailReader:
                     subject = _decode_header_value(msg.get("Subject", ""))
                     date    = msg.get("Date", "")
                     body    = _extract_body(msg)[:6000]
+                    body    = _fetch_web_body(body)
 
                     if _is_financial_email(sender, subject, body):
                         results.append({

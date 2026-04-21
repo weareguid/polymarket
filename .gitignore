@@ -57,3 +57,9 @@ env/
 # Runtime data directories
 data/snapshots/
 data/huggingface/
+
+# Personal trading data — never commit
+data/paper_trades/
+data/signal_log/
+data/watchlist.json
+data/scorecard.csv

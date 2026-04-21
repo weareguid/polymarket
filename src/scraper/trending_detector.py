@@ -62,11 +62,29 @@ class TrendingDetector:
         r"\b(nba|nfl|nhl|mlb|mls|wnba|nascar|pga tour|lpga|ufc|wwe)\b",
         r"\b(super bowl|world series|stanley cup|nba finals|nba championship|nfl playoffs)\b",
         r"\b(premier league|la liga|bundesliga|serie a|ligue 1|champions league|europa league|copa del rey)\b",
-        r"\b(formula (1|one)|f1 (race|driver|champion|grand prix))\b",
+        r"\b(formula (1|one)|f1 (race|drivers?|champion|grand prix))\b",
         r"\b(wimbledon|us open|french open|australian open|atp|wta)\b",
         r"\b(fifa world cup|euro (2024|2026|2028)|copa america|gold cup)\b",
         r"\b(semifinal|quarterfinal|playoff[s]?|round of \d+)\b.{0,30}\bvs\.?\b",
+        # Individual club/team match-day predictions ("Will X win on YYYY-MM-DD?")
+        r"win on \d{4}-\d{2}-\d{2}",
+        # Football clubs by suffix or well-known names
+        r"\b(fc\b|football club|united fc|city fc|sporting cp|real madrid|barcelona|atletico|juventus|"
+        r"ac milan|inter milan|internazionale|napoli|celtic|rangers|ajax|benfica|porto|"
+        r"west ham|arsenal|chelsea|liverpool|tottenham|manchester|everton|aston villa|"
+        r"olympique|lyon|marseille|psg|paris saint.germain|sevilla|osasuna|oviedo|"
+        r"monaco|torino|eintracht|al.fateh|al.hilal|al.nassr|al.ittihad)\b",
+        # F1 individual driver/champion markets
+        r"\bdrivers?'? champion\b",
+        # Generic team vs team, spreads, and over/under.
+        r"\bspread: \w+",
+        r"\w+ vs\.? \w+:? (?:o/u|over/under|over|under)\b",
+        r"\w+ vs\.? \w+",
         r"\b(olympic games|winter olympics|summer olympics|paralympics)\b",
+        # College sports
+        r"\b(ncaa|march madness|college football playoff|cfp)\b",
+        # Entertainment / viral creators
+        r"\b(mrbeast|mr\.? beast|eurovision|esports)\b",
         # Reality TV / celebrity personal events
         r"\b(bachelor|bachelorette|survivor|big brother|american idol|the voice|dancing with)\b",
     ]

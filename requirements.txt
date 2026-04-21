@@ -11,6 +11,9 @@ matplotlib>=3.7.0
 # Stock prices (record_trade.py, dashboard P&L)
 yfinance>=0.2.0
 
+# Seth Goldman — Claude API critique
+anthropic>=0.90.0
+
 # Optional: For future improvements
 # websocket-client>=1.5.0  # Real-time data
 # scikit-learn>=1.2.0  # ML models

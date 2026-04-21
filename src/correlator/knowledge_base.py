@@ -113,6 +113,7 @@ class KnowledgeBase:
             "europe": [
                 Instrument("VGK", "Vanguard FTSE Europe", "etf", "NYSE", "positive"),
                 Instrument("EZU", "iShares MSCI Eurozone", "etf", "NYSE", "positive"),
+                Instrument("MDIJX", "MFS Intl Diversification", "etf", "NASDAQ", "positive"),
             ],
         }
 
@@ -205,27 +206,36 @@ class KnowledgeBase:
                 Instrument("TLT", "20+ Year Treasury", "etf", "NASDAQ", "negative"),
                 Instrument("SHY", "1-3 Year Treasury", "etf", "NASDAQ", "positive"),
                 Instrument("XLF", "Financial Select", "etf", "NYSE", "positive"),
+                Instrument("EIGIX", "Eaton Vance Core Bond", "etf", "NASDAQ", "negative"),
+                Instrument("IISIX", "Voya Strategic Income", "etf", "NASDAQ", "negative"),
             ],
             "interest rate": [
                 Instrument("TLT", "20+ Year Treasury", "etf", "NASDAQ", "negative"),
                 Instrument("IEF", "7-10 Year Treasury", "etf", "NASDAQ", "negative"),
                 Instrument("XLF", "Financial Select", "etf", "NYSE", "positive"),
+                Instrument("EIGIX", "Eaton Vance Core Bond", "etf", "NASDAQ", "negative"),
+                Instrument("IISIX", "Voya Strategic Income", "etf", "NASDAQ", "negative"),
             ],
             "inflation": [
                 Instrument("TIP", "iShares TIPS Bond", "etf", "NYSE", "positive"),
                 Instrument("GLD", "SPDR Gold", "etf", "NYSE", "positive"),
                 Instrument("DBA", "Invesco DB Agriculture", "etf", "NYSE", "positive"),
+                Instrument("EIGIX", "Eaton Vance Core Bond", "etf", "NASDAQ", "negative"),
             ],
             "recession": [
                 Instrument("TLT", "20+ Year Treasury", "etf", "NASDAQ", "positive"),
                 Instrument("XLU", "Utilities Select", "etf", "NYSE", "positive"),
                 Instrument("XLP", "Consumer Staples", "etf", "NYSE", "positive"),
                 Instrument("SPY", "S&P 500", "etf", "NYSE", "negative"),
+                Instrument("BMCIX", "BlackRock High Equity", "etf", "NASDAQ", "negative"),
+                Instrument("GSUTX", "Goldman Sachs US Equity", "etf", "NASDAQ", "negative"),
             ],
             "tariff": [
                 Instrument("EWZ", "Brazil ETF", "etf", "NYSE", "negative"),
                 Instrument("FXI", "China ETF", "etf", "NYSE", "negative"),
                 Instrument("SPY", "S&P 500", "etf", "NYSE", "negative"),
+                Instrument("GSUTX", "Goldman Sachs US Equity", "etf", "NASDAQ", "negative"),
+                Instrument("MDIJX", "MFS Intl Diversification", "etf", "NASDAQ", "negative"),
             ],
             "war": [
                 Instrument("ITA", "Aerospace & Defense", "etf", "NYSE", "positive"),
@@ -250,6 +260,7 @@ class KnowledgeBase:
             "election": [
                 Instrument("SPY", "S&P 500", "etf", "NYSE", "neutral"),
                 Instrument("VIX", "Volatility Index", "index", "CBOE", "positive"),
+                Instrument("GSUTX", "Goldman Sachs US Equity", "etf", "NASDAQ", "neutral"),
             ],
 
             # ── Patterns discovered via EDA of 268K historical Polymarket markets ──
@@ -292,12 +303,14 @@ class KnowledgeBase:
                 Instrument("IPO", "Renaissance IPO ETF", "etf", "NYSE", "positive"),
                 Instrument("XLK", "Technology Select SPDR", "etf", "NYSE", "positive"),
                 Instrument("SPY", "S&P 500", "etf", "NYSE", "positive"),
+                Instrument("BMCIX", "BlackRock High Equity", "etf", "NASDAQ", "positive"),
             ],
             "debt ceiling": [
                 Instrument("TLT", "20+ Year Treasury", "etf", "NASDAQ", "negative"),
                 Instrument("GLD", "SPDR Gold", "etf", "NYSE", "positive"),
                 Instrument("SPY", "S&P 500", "etf", "NYSE", "negative"),
                 Instrument("BTC-USD", "Bitcoin", "crypto", "CRYPTO", "positive"),
+                Instrument("BMCIX", "BlackRock High Equity", "etf", "NASDAQ", "negative"),
             ],
             "shutdown": [
                 Instrument("SPY", "S&P 500", "etf", "NYSE", "negative"),
@@ -333,12 +346,16 @@ class KnowledgeBase:
                 Instrument("VNQ", "Vanguard Real Estate", "etf", "NYSE", "positive"),
                 Instrument("XLF", "Financial Select SPDR", "etf", "NYSE", "negative"),
                 Instrument("SPY", "S&P 500", "etf", "NYSE", "positive"),
+                Instrument("EIGIX", "Eaton Vance Core Bond", "etf", "NASDAQ", "positive"),
+                Instrument("IISIX", "Voya Strategic Income", "etf", "NASDAQ", "positive"),
             ],
             "rate hike": [
                 Instrument("TLT", "20+ Year Treasury", "etf", "NASDAQ", "negative"),
                 Instrument("KRE", "SPDR Regional Banking", "etf", "NYSE", "positive"),
                 Instrument("XLF", "Financial Select SPDR", "etf", "NYSE", "positive"),
                 Instrument("VNQ", "Vanguard Real Estate", "etf", "NYSE", "negative"),
+                Instrument("EIGIX", "Eaton Vance Core Bond", "etf", "NASDAQ", "negative"),
+                Instrument("IISIX", "Voya Strategic Income", "etf", "NASDAQ", "negative"),
             ],
         }
 

@@ -55,6 +55,47 @@ KNOWN_TICKERS = {
     "ORCL", "CRM", "ADBE", "NOW", "SNOW", "PLTR", "NET", "DDOG", "ZS",
 }
 
+# ─── Company name → ticker mapping ──────────────────────────────────────────
+COMPANY_TO_TICKER = {
+    # Big Tech
+    "apple": "AAPL", "microsoft": "MSFT", "google": "GOOGL", "alphabet": "GOOGL",
+    "amazon": "AMZN", "meta": "META", "facebook": "META", "nvidia": "NVDA",
+    "tesla": "TSLA", "netflix": "NFLX",
+    # Semiconductors
+    "amd": "AMD", "intel": "INTC", "qualcomm": "QCOM", "broadcom": "AVGO",
+    "tsmc": "TSM", "taiwan semiconductor": "TSM", "asml": "ASML",
+    # Finance
+    "jpmorgan": "JPM", "jp morgan": "JPM", "bank of america": "BAC",
+    "goldman sachs": "GS", "morgan stanley": "MS", "wells fargo": "WFC",
+    "citigroup": "C", "visa": "V", "mastercard": "MA", "blackrock": "BLK",
+    # Energy
+    "exxonmobil": "XOM", "exxon mobil": "XOM", "exxon": "XOM",
+    "chevron": "CVX", "bp": "BP", "conocophillips": "COP", "schlumberger": "SLB",
+    # Pharma
+    "johnson & johnson": "JNJ", "pfizer": "PFE", "merck": "MRK",
+    "abbvie": "ABBV", "eli lilly": "LLY", "lilly": "LLY",
+    "bristol myers": "BMY", "amgen": "AMGN", "gilead": "GILD",
+    "unitedhealth": "UNH", "united health": "UNH",
+    # Consumer
+    "disney": "DIS", "nike": "NKE", "starbucks": "SBUX", "mcdonald": "MCD",
+    "walmart": "WMT", "costco": "COST", "target": "TGT", "home depot": "HD",
+    # Defense
+    "boeing": "BA", "lockheed martin": "LMT", "lockheed": "LMT",
+    "raytheon": "RTX", "northrop grumman": "NOC", "general dynamics": "GD",
+    # Crypto
+    "coinbase": "COIN", "microstrategy": "MSTR", "robinhood": "HOOD",
+    # Auto
+    "ford": "F", "general motors": "GM", "rivian": "RIVN", "toyota": "TM",
+    # Airlines
+    "united airlines": "UAL", "delta": "DAL", "southwest": "LUV", "american airlines": "AAL",
+    # Other
+    "uber": "UBER", "lyft": "LYFT", "airbnb": "ABNB", "doordash": "DASH",
+    "shopify": "SHOP", "square": "SQ", "block": "SQ", "paypal": "PYPL",
+    "snap": "SNAP", "oracle": "ORCL", "salesforce": "CRM", "adobe": "ADBE",
+    "snowflake": "SNOW", "palantir": "PLTR", "cloudflare": "NET",
+    "philip morris": "PM", "beyond meat": "BYND",
+}
+
 # ─── Ticker detection patterns ───────────────────────────────────────────────
 # These locate WHERE a ticker is mentioned in text.
 # Direction comes from the sentence context, not these patterns.
@@ -295,7 +336,6 @@ def parse_email(email_data: Dict) -> List[TickerMention]:
                 continue
             ticker = ticker_candidates[-1].upper()
 
-            # Validate against known universe (unless $TICKER notation)
             if ticker not in KNOWN_TICKERS and not is_dollar_pattern:
                 continue
 
@@ -303,9 +343,6 @@ def parse_email(email_data: Dict) -> List[TickerMention]:
             scoring_window = _extract_scoring_window(body, match.start())
             direction, confidence = _score_sentence(scoring_window)
 
-            # For $TICKER pattern: always keep even if MENTION (newsletter
-            # authors use $ specifically to flag financial instruments)
-            # For other patterns: only keep if we have a real signal
             if direction == "MENTION" and not is_dollar_pattern:
                 continue
 
@@ -318,5 +355,26 @@ def parse_email(email_data: Dict) -> List[TickerMention]:
                     source=source,
                     date=date,
                 )
+
+    # Scan for company names (e.g. "Nike", "ExxonMobil")
+    body_lower = body.lower()
+    for company, ticker in COMPANY_TO_TICKER.items():
+        idx = body_lower.find(company)
+        if idx == -1:
+            continue
+        scoring_window = _extract_scoring_window(body, idx)
+        direction, confidence = _score_sentence(scoring_window)
+        if direction == "MENTION":
+            continue
+        if ticker not in found or found[ticker].confidence < confidence:
+            sentence = _extract_sentence(body, idx)
+            found[ticker] = TickerMention(
+                ticker=ticker,
+                direction=direction,
+                confidence=confidence,
+                context=sentence[:300],
+                source=source,
+                date=date,
+            )
 
     return list(found.values())
