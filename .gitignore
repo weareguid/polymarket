@@ -58,8 +58,9 @@ env/
 data/snapshots/
 data/huggingface/
 
-# Personal trading data — never commit
-data/paper_trades/
-data/signal_log/
-data/watchlist.json
-data/scorecard.csv
+# Personal trading data — skeleton files ARE committed (empty placeholders)
+# but real local data is frozen via: git update-index --assume-unchanged
+# data/paper_trades/      ← tracked as skeleton
+# data/signal_log/        ← tracked as skeleton
+# data/watchlist.json     ← tracked as skeleton
+# data/scorecard.csv      ← tracked as skeleton
